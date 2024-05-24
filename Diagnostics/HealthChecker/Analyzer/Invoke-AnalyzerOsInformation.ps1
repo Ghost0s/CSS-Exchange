@@ -458,4 +458,17 @@ function Invoke-AnalyzerOsInformation {
         }
         Add-AnalyzedResultInformation @params
     }
+
+    $days = 7
+    $test = (Get-Date).AddDays(-$days)
+    foreach ($logType in $osInformation.EventLogInformation.Keys) {
+        if ($osInformation.EventLogInformation[$logType].LastLogEntry -gt $test) {
+            $params = $baseParams + @{
+                Name             = "Event Log - $logType"
+                Details          = "--ERROR-- Not enough logs to cover $days days. This could cause issues with determining Root Cause Analysis."
+                DisplayWriteType = "Red"
+            }
+            Add-AnalyzedResultInformation @params
+        }
+    }
 }

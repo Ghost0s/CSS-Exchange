@@ -2,7 +2,7 @@
 # Licensed under the MIT License.
 
 . $PSScriptRoot\..\..\..\..\Shared\Invoke-ScriptBlockHandler.ps1
-Get-EventLogInformation {
+function Get-EventLogInformation {
     [CmdletBinding()]
     [OutputType("System.Collections.Hashtable")]
     param(
